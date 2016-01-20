@@ -8,11 +8,6 @@ class NormalDistribution(Distribution):
     """Multivariate normal distribution with parameters (mu, Sigma)."""
 
     @staticmethod
-    def get_dimensionality(parameters):
-        mu, sigma = parameters
-        return mu.shape[0]
-
-    @staticmethod
     def density(data, parameters):
         mu, sigma = parameters
         return scipy.stats.multivariate_normal.pdf(data, mu, sigma)

@@ -6,10 +6,6 @@ class Distribution(object):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def get_dimensionality(self, parameters):
-        return 1
-
-    @abc.abstractmethod
     def density(self, data, parameters):
         return np.ones((data.shape[0],))
 
