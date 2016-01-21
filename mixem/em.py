@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def em(data, distributions, initial_weights, initial_parameters, tol=1e-15, tol_iters=10, progress_callback=None):
+def em(data, distributions, initial_weights, initial_parameters, max_iterations=100, tol=1e-15, tol_iters=10, progress_callback=None):
 
     n_distr = len(distributions)
     n_data = data.shape[0]
@@ -39,6 +39,9 @@ def em(data, distributions, initial_weights, initial_parameters, tol=1e-15, tol_
         # Convergence check #######
         if iteration >= tol_iters and (last_ll[-1] - log_likelihood) / last_ll[-1] <= tol:
             last_ll[0] = log_likelihood
+            break
+
+        if iteration >= max_iterations:
             break
 
         # store value of current iteration in last_ll[0]
