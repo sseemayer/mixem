@@ -37,11 +37,16 @@ def em(data, distributions, initial_weights, initial_parameters, max_iterations=
             progress_callback(iteration, weight, param, log_likelihood)
 
         # Convergence check #######
+        if np.isnan(log_likelihood):
+            last_ll[0] = log_likelihood
+            break
+
         if iteration >= tol_iters and (last_ll[-1] - log_likelihood) / last_ll[-1] <= tol:
             last_ll[0] = log_likelihood
             break
 
         if iteration >= max_iterations:
+            last_ll[0] = log_likelihood
             break
 
         # store value of current iteration in last_ll[0]
