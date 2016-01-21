@@ -39,7 +39,7 @@ def recover(data):
 
     init_weights = [0.1, 0.9]
 
-    weight, param, ll = mixem.em(data, [mixem.distribution.NormalDistribution] * 2, init_weights, init_params, progress_callback=progress)
+    weight, param, ll = mixem.em(data, [mixem.distribution.MultivariateNormalDistribution] * 2, init_weights, init_params, progress_callback=progress)
 
     print(weight, param, ll)
 
