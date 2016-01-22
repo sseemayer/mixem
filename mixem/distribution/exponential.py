@@ -1,3 +1,4 @@
+# coding=utf-8
 import numpy as np
 
 from mixem.distribution.distribution import Distribution
@@ -6,13 +7,16 @@ from mixem.distribution.distribution import Distribution
 class ExponentialDistribution(Distribution):
     """Exponential distribution with parameter (lambda)."""
 
-    @staticmethod
-    def density(data, lmbda):
-        assert(len(data.shape) == 1), "Expect 1D data!"
-        return lmbda * np.exp(-lmbda * data)
+    def __init__(self, lmbda):
+        self.lmbda = lmbda
 
-    @staticmethod
-    def estimate_parameters(data, weights):
+    def density(self, data):
         assert(len(data.shape) == 1), "Expect 1D data!"
-        lmbda = np.sum(weights) / np.sum(weights * data)
-        return lmbda
+        return self.lmbda * np.exp(-self.lmbda * data)
+
+    def estimate_parameters(self, data, weights):
+        assert(len(data.shape) == 1), "Expect 1D data!"
+        self.lmbda = np.sum(weights) / np.sum(weights * data)
+
+    def __repr__(self):
+        return "Exp[λ={lmbda}]".format(lmbda=self.lmbda)

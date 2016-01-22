@@ -1,5 +1,4 @@
 import abc
-import numpy as np
 
 
 class Distribution(object):
@@ -7,8 +6,12 @@ class Distribution(object):
 
     @abc.abstractmethod
     def density(self, data, parameters):
-        return np.ones((data.shape[0],))
+        raise NotImplementedError("Need to implement density calculation!")
 
     @abc.abstractmethod
     def estimate_parameters(self, data, weights):
-        return [], 0
+        raise NotImplementedError("Need to implement parameter estimation!")
+
+    @abc.abstractmethod
+    def __repr__(self):
+        raise NotImplementedError("Need to implement string representation!")

@@ -1,13 +1,17 @@
 import numpy as np
 
+import mixem
 
-def em(data, distributions, initial_weights, initial_parameters, max_iterations=100, tol=1e-15, tol_iters=10, progress_callback=None):
+
+def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15, tol_iters=10, progress_callback=mixem.simple_progress):
 
     n_distr = len(distributions)
     n_data = data.shape[0]
 
-    weight = np.array(initial_weights)
-    param = initial_parameters
+    if initial_weights is not None:
+        weight = np.array(initial_weights)
+    else:
+        weight = np.ones((n_distr,))
 
     last_ll = np.zeros((tol_iters, ))
     resp = np.empty((n_data, n_distr))
@@ -19,7 +23,7 @@ def em(data, distributions, initial_weights, initial_parameters, max_iterations=
 
         # compute responsibilities
         for d in range(n_distr):
-            density[:, d] = distributions[d].density(data, param[d])
+            density[:, d] = distributions[d].density(data)
 
         # normalize responsibilities of distributions so they sum up to one for example
         resp = weight[np.newaxis, :] * density
@@ -29,12 +33,12 @@ def em(data, distributions, initial_weights, initial_parameters, max_iterations=
 
         # M-step #######
         for d in range(n_distr):
-            param[d] = distributions[d].estimate_parameters(data, resp[:, d])
+            distributions[d].estimate_parameters(data, resp[:, d])
 
         weight = np.mean(resp, axis=0)
 
         if progress_callback:
-            progress_callback(iteration, weight, param, log_likelihood)
+            progress_callback(iteration, weight, distributions, log_likelihood)
 
         # Convergence check #######
         if np.isnan(log_likelihood):
@@ -56,4 +60,4 @@ def em(data, distributions, initial_weights, initial_parameters, max_iterations=
 
         iteration += 1
 
-    return weight, param, last_ll[0]
+    return weight, distributions, last_ll[0]

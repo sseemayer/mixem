@@ -2,7 +2,7 @@
 
 import numpy as np
 import mixem
-import mixem.distribution
+from mixem.distribution import MultivariateNormalDistribution
 
 
 def generate_data():
@@ -23,10 +23,6 @@ def generate_data():
     return data
 
 
-def progress(iter, weights, params, ll):
-    print("{0:4d}: ll={1:.5e} w={2:.2f}     mu0={3:.4e} mu1={4:.4e}   s0={5:.4e} s1={6:.5e}".format(iter, ll, weights[0], params[0][0][0], params[1][0][0], params[0][1][0][0], params[1][1][0][0]))
-
-
 def recover(data):
 
     mu = np.mean(data)
@@ -37,11 +33,9 @@ def recover(data):
         (np.array([mu - 0.1]), np.diag([sigma]))
     ]
 
-    init_weights = [0.1, 0.9]
+    weight, distributions, ll = mixem.em(data, [MultivariateNormalDistribution(mu, sigma) for mu, sigma in init_params])
 
-    weight, param, ll = mixem.em(data, [mixem.distribution.MultivariateNormalDistribution] * 2, init_weights, init_params, progress_callback=progress)
-
-    print(weight, param, ll)
+    print(weight, distributions, ll)
 
 
 if __name__ == '__main__':
