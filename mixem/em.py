@@ -4,6 +4,31 @@ import mixem
 
 
 def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15, tol_iters=10, progress_callback=mixem.simple_progress):
+    """Fit a mixture of probability distributions using the Expectation-Maximization (EM) algorithm.
+
+    :param data: The data to fit the distributions for. Can be an array-like or a :class:`numpy.ndarray`
+    :type data: numpy.ndarray
+
+    :param distributions: The list of distributions to fit to the data.
+    :type distributions: [mixem.distribution.Distribution]
+
+    :param initial_weights:  Inital weights for the distributions. Must be the same size as distributions. If None, will use uniform initial weights for all distributions.
+    :type initial_weights: numpy.ndarray
+
+    :param max_iterations:  The maximum number of iterations to compute for.
+    :type max_iterations: int
+
+    :param tol: The minimum relative increase in log-likelihood after tol_iters iterations
+    :type tol: float
+
+    :param tol_iters: The number of iterations to go back in comparing log-likelihood change
+    :type tol_iters: int
+
+    :param progress_callback: A function to call to report progress after every iteration.
+    :type progress_callback: function or None
+
+    :rtype: tuple (weights, distributitons, log_likelihood)
+    """
 
     n_distr = len(distributions)
     n_data = data.shape[0]
