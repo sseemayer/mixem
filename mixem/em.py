@@ -10,7 +10,7 @@ def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15,
     :type data: numpy.ndarray
 
     :param distributions: The list of distributions to fit to the data.
-    :type distributions: [mixem.distribution.Distribution]
+    :type distributions: list of :class:`mixem.distribution.Distribution`
 
     :param initial_weights:  Inital weights for the distributions. Must be the same size as distributions. If None, will use uniform initial weights for all distributions.
     :type initial_weights: numpy.ndarray

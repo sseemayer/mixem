@@ -1,12 +1,15 @@
+API Reference
+=============
+
 Core Methods
-============
+------------
 
 .. automodule:: mixem
    :members: em, probability
 
 
 Specifying Distributions
-========================
+------------------------
 
 .. automodule:: mixem.distribution
-   :members: ExponentialDistribution, GeometricDistribution, NormalDistribution, MultivariateNormalDistribution
+   :members: Distribution, ExponentialDistribution, GeometricDistribution, NormalDistribution, MultivariateNormalDistribution
