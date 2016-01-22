@@ -21,7 +21,7 @@ from unittest.mock import MagicMock
 class Mock(MagicMock):
     pass
 
-MOCK_MODULES = ['numpy']
+MOCK_MODULES = ['numpy', 'scipy']
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # If extensions (or modules to document with autodoc) are in another directory,
