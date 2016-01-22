@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name="mixem",
-    version="0.0.4",
+    version="0.1.0",
 
     author="Stefan Seemayer",
     author_email="stefan@seemayer.de",
