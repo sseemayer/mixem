@@ -19,4 +19,4 @@ class ExponentialDistribution(Distribution):
         self.lmbda = np.sum(weights) / np.sum(weights * data)
 
     def __repr__(self):
-        return "Exp[λ={lmbda}]".format(lmbda=self.lmbda)
+        return "Exp[λ={lmbda:.4g}]".format(lmbda=self.lmbda)
