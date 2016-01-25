@@ -12,6 +12,14 @@ User's Guide
    installation
    getting-started
 
+Examples
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   examples/old_faithful
+
 API Reference
 -------------
 
