@@ -45,7 +45,7 @@ class MultivariateNormalDistribution(Distribution):
         self.sigma = sigma
 
     def log_density(self, data):
-        return np.log(scipy.stats.multivariate_normal.pdf(data, self.mu, self.sigma))
+        return scipy.stats.multivariate_normal.logpdf(data, self.mu, self.sigma)
 
     def estimate_parameters(self, data, weights):
         self.mu = np.sum(data * weights[:, np.newaxis], axis=0) / np.sum(weights)
