@@ -40,7 +40,7 @@ def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15,
 
     last_ll = np.zeros((tol_iters, ))
     resp = np.empty((n_data, n_distr))
-    density = np.empty((n_data, n_distr))
+    log_density = np.empty((n_data, n_distr))
 
     iteration = 0
     while True:
@@ -48,13 +48,13 @@ def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15,
 
         # compute responsibilities
         for d in range(n_distr):
-            density[:, d] = distributions[d].density(data)
+            log_density[:, d] = distributions[d].log_density(data)
 
         # normalize responsibilities of distributions so they sum up to one for example
-        resp = weight[np.newaxis, :] * density
+        resp = weight[np.newaxis, :] * np.exp(log_density)
         resp /= np.sum(resp, axis=1)[:, np.newaxis]
 
-        log_likelihood = np.sum(resp * np.log(density))
+        log_likelihood = np.sum(resp * log_density)
 
         # M-step #######
         for d in range(n_distr):

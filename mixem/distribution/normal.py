@@ -12,10 +12,10 @@ class NormalDistribution(Distribution):
         self.mu = mu
         self.sigma = sigma
 
-    def density(self, data):
+    def log_density(self, data):
         assert(len(data.shape) == 1), "Expect 1D data!"
 
-        return scipy.stats.norm.pdf(data, self.mu, self.sigma)
+        return - (data - self.mu) ** 2 / (2 * self.sigma ** 2) - np.log(self.sigma) - 0.5 * np.log(2 * np.pi)
 
     def estimate_parameters(self, data, weights):
         assert(len(data.shape) == 1), "Expect 1D data!"
@@ -44,8 +44,8 @@ class MultivariateNormalDistribution(Distribution):
         self.mu = mu
         self.sigma = sigma
 
-    def density(self, data):
-        return scipy.stats.multivariate_normal.pdf(data, self.mu, self.sigma)
+    def log_density(self, data):
+        return np.log(scipy.stats.multivariate_normal.pdf(data, self.mu, self.sigma))
 
     def estimate_parameters(self, data, weights):
         self.mu = np.sum(data * weights[:, np.newaxis], axis=0) / np.sum(weights)

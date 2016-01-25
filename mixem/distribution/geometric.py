@@ -10,9 +10,9 @@ class GeometricDistribution(Distribution):
     def __init__(self, p):
         self.p = p
 
-    def density(self, data):
+    def log_density(self, data):
         assert(len(data.shape) == 1), "Expect 1D data!"
-        return (1 - self.p) ** (data - 1) * self.p
+        return np.log(1 - self.p) * (data - 1) + np.log(self.p)
 
     def estimate_parameters(self, data, weights):
         assert(len(data.shape) == 1), "Expect 1D data!"

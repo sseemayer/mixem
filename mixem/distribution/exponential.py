@@ -10,9 +10,9 @@ class ExponentialDistribution(Distribution):
     def __init__(self, lmbda):
         self.lmbda = lmbda
 
-    def density(self, data):
+    def log_density(self, data):
         assert(len(data.shape) == 1), "Expect 1D data!"
-        return self.lmbda * np.exp(-self.lmbda * data)
+        return np.log(self.lmbda) - self.lmbda * data
 
     def estimate_parameters(self, data, weights):
         assert(len(data.shape) == 1), "Expect 1D data!"

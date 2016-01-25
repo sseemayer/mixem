@@ -11,6 +11,6 @@ def probability(data, weights, distributions):
 
     densities = np.empty((data.shape[0], n_dist))
     for d in range(n_dist):
-        densities[:, d] = distributions[d].density(data)
+        densities[:, d] = np.exp(distributions[d].log_density(data))
 
     return np.sum(weights[np.newaxis, :] * densities, axis=1)
