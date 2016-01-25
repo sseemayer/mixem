@@ -26,7 +26,7 @@ class NormalDistribution(Distribution):
         self.sigma = np.sqrt(np.sum(weights * (data - self.mu) ** 2) / wsum)
 
     def __repr__(self):
-        return "Normal[μ={mu:.4g}, σ={sigma:.4g}]".format(mu=self.mu, sigma=self.sigma)
+        return "Norm[μ={mu:.4g}, σ={sigma:.4g}]".format(mu=self.mu, sigma=self.sigma)
 
 
 class MultivariateNormalDistribution(Distribution):
@@ -62,5 +62,13 @@ class MultivariateNormalDistribution(Distribution):
         ) / np.sum(weights)
 
     def __repr__(self):
-        return "MultiNormal[μ={mu}, σ={sigma}]".format(mu=self.mu, sigma=self.sigma)
+        po = np.get_printoptions()
 
+        np.set_printoptions(precision=3)
+
+        try:
+            result = "MultiNorm[μ={mu}, σ={sigma}]".format(mu=self.mu, sigma=str(self.sigma).replace("\n", ","))
+        finally:
+            np.set_printoptions(**po)
+
+        return result
