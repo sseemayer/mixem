@@ -1,12 +1,15 @@
 mix'EM 
 ======
 
+
+mixem is a pure-python implementation of the Expectation-Maximization (EM) algorithm for fitting mixtures of probability distributions. It works in Python 2 and Python 3 (tested with 2.7 and 3.5.1) and uses few dependencies (only NumPy and SciPy).
+
+
 .. image:: http://i.imgur.com/kJgsHMG.png
    :scale: 50 %
    :alt: Old Faithful example
    :align: left
 
-mixem is a pure-python implementation of the Expectation-Maximization (EM) algorithm for fitting mixtures of probability distributions. It works in Python 2 and Python 3 (tested with 2.7 and 3.5.1) and uses few dependencies (only NumPy and SciPy).
 
 Features
 --------
