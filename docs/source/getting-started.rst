@@ -4,7 +4,7 @@ Getting started
 Design
 ------
 
-From :math:`N` points of data :math:`X=(\vec x_1, \ldots, \vec x_N)`, mix'EM will let you fit a probability distribution :math:`P(x|\phi)` from a mixture of :math:`D` probability distributions:
+From :math:`N` points of data :math:`X=(\vec x_1, \ldots, \vec x_N)`, mix'EM will let you fit a probability distribution :math:`P(x|\phi)` from a mixture of :math:`D` probability distributions with parameters :math:`\phi_d` and mixing weights :math:`w_d`:
 
 .. math::
     P(x|\phi) = \sum_{d=1}^D w_d P(x|\phi_d), \; \sum_{d=1}^D w_d = 1
