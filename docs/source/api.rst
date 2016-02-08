@@ -12,4 +12,4 @@ Specifying Distributions
 ------------------------
 
 .. automodule:: mixem.distribution
-   :members: Distribution, ExponentialDistribution, GeometricDistribution, NormalDistribution, MultivariateNormalDistribution
+   :members: Distribution, ExponentialDistribution, GeometricDistribution, NormalDistribution, MultivariateNormalDistribution, LogNormalDistribution
