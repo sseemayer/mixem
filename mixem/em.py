@@ -23,7 +23,7 @@ def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15,
     """Fit a mixture of probability distributions using the Expectation-Maximization (EM) algorithm.
 
     :param data: The data to fit the distributions for. Can be an array-like or a :class:`numpy.ndarray`
-    :type data: numpy.ndarraydd
+    :type data: numpy.ndarray
 
     :param distributions: The list of distributions to fit to the data.
     :type distributions: list of :class:`mixem.distribution.Distribution`
