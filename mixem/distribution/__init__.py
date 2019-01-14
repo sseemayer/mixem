@@ -4,3 +4,4 @@ from mixem.distribution.normal import NormalDistribution, MultivariateNormalDist
 from mixem.distribution.exponential import ExponentialDistribution
 
 from mixem.distribution.geometric import GeometricDistribution
+from mixem.distribution.vmf import vmfDistribution
