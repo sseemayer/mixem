@@ -2,12 +2,28 @@ import numpy as np
 
 import mixem
 
+def logsumexp(X,axis=None,keepdims=1,log=1):
+    '''
+    log( 
+        sum(
+            exp(X)
+            )
+        )
+'''
+    xmax = np.max(X,axis=axis,keepdims=keepdims)
+    y = np.exp(X-xmax) 
+    S = y.sum(axis=axis,keepdims=keepdims)
+    if log:
+        S = np.log(S)  + xmax
+    else:
+        S = S*np.exp(xmax)
+    return S
 
 def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15, tol_iters=10, progress_callback=mixem.simple_progress):
     """Fit a mixture of probability distributions using the Expectation-Maximization (EM) algorithm.
 
     :param data: The data to fit the distributions for. Can be an array-like or a :class:`numpy.ndarray`
-    :type data: numpy.ndarray
+    :type data: numpy.ndarraydd
 
     :param distributions: The list of distributions to fit to the data.
     :type distributions: list of :class:`mixem.distribution.Distribution`
@@ -51,10 +67,13 @@ def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15,
             log_density[:, d] = distributions[d].log_density(data)
 
         # normalize responsibilities of distributions so they sum up to one for example
-        resp = weight[np.newaxis, :] * np.exp(log_density)
-        resp /= np.sum(resp, axis=1)[:, np.newaxis]
+        logResp = np.log(weight[None,: ]) + log_density
+        logResp = logResp - logsumexp(logResp,axis=1)
+        resp = np.exp(logResp)
+#         resp = weight[np.newaxis, :] * np.exp(log_density)
+#         resp /= np.sum(resp, axis=1)[:,  np.newaxis]
 
-        log_likelihood = np.sum(resp * log_density)
+        log_likelihood = np.sum( resp * log_density)
 
         # M-step #######
         for d in range(n_distr):
@@ -85,4 +104,5 @@ def em(data, distributions, initial_weights=None, max_iterations=100, tol=1e-15,
 
         iteration += 1
 
-    return weight, distributions, last_ll[0]
+    ### Return full history for debugging
+    return weight, distributions, last_ll[::-1]
