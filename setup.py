@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name="mixem",
-    version="0.1.3",
+    version="0.1.4.1",
 
     author="Stefan Seemayer",
     author_email="stefan@seemayer.de",
@@ -20,6 +20,7 @@ setup(
     long_description=read("README.rst"),
 
     license="MIT",
+    license_file="LICENSE.txt",
     keywords="numeric em expectation maximization probability statistics distribution",
     url="https://github.com/sseemayer/mixem",
 
